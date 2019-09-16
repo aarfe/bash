@@ -1,12 +1,16 @@
 # Change prompt color depending on environment
 
 # Decide which color
-COLOR="\[\e[0;32m\]" # Green for test/development
+
+# Default to GREEN for test/development
+COLOR="\[\e[0;32m\]" 
+
+# other environemnts
 if  [[ $HOSTNAME == *s ]]; then
-    COLOR="\[\e[0;33m\]" # Yellow for staging
+    COLOR="\[\e[0;33m\]" # YELLOW for staging
 fi
 if  [[ $HOSTNAME == *p ]]; then
-    COLOR="\[\e[0;31m\]" # Red for prod
+    COLOR="\[\e[0;31m\]" # RED for prod
 fi
 
 # Set propmt variable with name, hostname, path and color

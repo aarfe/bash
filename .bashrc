@@ -13,5 +13,10 @@ if  [[ $HOSTNAME == *p ]]; then
     COLOR="\[\e[0;31m\]" # RED for prod
 fi
 
+# Parse git branch 
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 # Set propmt variable with name, hostname, path and color
-export PS1="${COLOR}\u@\h:\[\e[m\]\w $ "
+export PS1="${COLOR}\u@\h:\[\e[m\]\w $(parse_git_branch)\[\033[00m\] "

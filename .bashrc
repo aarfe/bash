@@ -19,4 +19,4 @@ parse_git_branch() {
 }
 
 # Set propmt variable with name, hostname, path and color
-export PS1="${COLOR}\u@\h:\[\e[m\]\w $(parse_git_branch)\[\033[00m\] "
+export PS1="${COLOR}\u@\h:\[\e[m\]\w $\[\033[33m\]\$(parse_git_branch) "

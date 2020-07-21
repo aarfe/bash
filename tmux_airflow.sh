@@ -5,6 +5,9 @@
 
 # To enable mouse scrolling, create a ~/.tmux.conf and add "set -g mouse on" 
 
+BROWSER_PATH='/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' 
+AIRFLOW_UI='http://localhost:8080'
+
 # Variables and titles
 SESSIONE_NAME='airflow'
 WINDOW_NAME='window_1'
@@ -45,7 +48,10 @@ tmuxstart() {
     tmux send-keys -t ${PANE_ID_SCHEDULER} 'source ~/Envs/venv_airflow/bin/activate' Enter
     tmux send-keys -t ${PANE_ID_SCHEDULER} 'airflow scheduler' Enter
 
-    tmux -2 attach-session -d -t ${SESSIONE_NAME}
+    # Start Browser with Airflow UI
+    ( sleep 5s; eval $BROWSER_PATH $AIRFLOW_UI ) & 
+    # Attach session
+    ( tmux -2 attach-session -t ${SESSIONE_NAME} -d )
     
 }
 
@@ -58,7 +64,7 @@ tmuxstop() {
 }
 
 # MAIN
-if [ $# == 1 ]; then
+if [ "$#" -eq 1 ]; then
     ACTION=$1
     case $ACTION in 
         start)
